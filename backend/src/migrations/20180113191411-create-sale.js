@@ -11,6 +11,12 @@ module.exports = {
       id_drug: {
         type: Sequelize.INTEGER
       },
+      id_prescription: {
+        type: Sequelize.INTEGER
+      },
+      quantity: {
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

@@ -1,13 +1,16 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   var drug = sequelize.define('drug', {
-    name: DataTypes.STRING
-  }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-      }
-    }
+    name: DataTypes.STRING,
+    producer: DataTypes.STRING,
+    supply: DataTypes.INTEGER,
+    price: DataTypes.INTEGER
   });
+  drug.associate = (models) => {
+    console.log("-> many to many");
+   // drug.belongsToMany (models.prescription, { foreignKey: 'id_drug' });
+    console.log("->drug belongs to sales");
+    drug.belongsTo (models.sale, { foreignKey: 'id_drug'});
+  }
   return drug;
 };

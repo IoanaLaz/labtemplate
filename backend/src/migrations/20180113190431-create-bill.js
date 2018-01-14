@@ -11,6 +11,12 @@ module.exports = {
       id_sale: {
         type: Sequelize.INTEGER
       },
+      sale_date: {
+        type: Sequelize.DATE
+      },
+      payment: {
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

@@ -5,12 +5,10 @@ module.exports = (sequelize, DataTypes) => {
     birthday: DataTypes.DATE,
     sex: DataTypes.STRING,
     address: DataTypes.STRING
-  }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-      }
-    }
-  });
+  }); 
+  client.associate = (models) => {
+    console.log("-> client has many prescriptions");
+    client.hasMany (models.prescription, { foreignKey: 'id_client'})
+  }
   return client;
 };

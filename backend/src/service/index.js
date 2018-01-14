@@ -1,5 +1,9 @@
-const user = require('./user');
+const bill = require('./bill');
+const client = require('./client');
+const drug = require('./drug');
+const prescription= require('./prescription');
+const sale= require('./sale')
 
 module.exports = {
-  user,
+ bill, client, drug, prescription, sale
 };

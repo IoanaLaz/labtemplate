@@ -24,9 +24,18 @@ app.use(cookieParser());
 
 // Controllers
 var index = require('./src/rest/index');
-var user = require('./src/rest/user');
+var bill = require('./src/rest/bill')
+var client = require('./src/rest/client');
+var drug = require('./src/rest/drug');
+var prescription = require('./src/rest/prescription');
+var sale = require('./src/rest/sale');
+
 app.use('/api', index);
-app.use('/api/user', user);
+app.use('/api/bill', bill);
+app.use('/api/client', client);
+app.use('/api/drug', drug);
+app.use('/api/prescription', prescription);
+app.use('/api/sale', sale);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
