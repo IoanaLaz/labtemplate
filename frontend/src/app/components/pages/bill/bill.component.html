@@ -1,0 +1,10 @@
+<p-dataTable [value]="client" selectionMode="single" [(selection)]="selectedClient" (onRowSelect)="onRowSelect($event)" [paginator]="true" rows="15" [responsive]="true">
+    <p-header>Bill Details</p-header>
+    <p-column field="id" header="Id" [sortable]="true"></p-column>
+      <p-column field="is_sale" header="Id_sale" [sortable]="true"></p-column>
+      <p-column field="sale_date" header="Sale_date" [sortable]="true"></p-column>
+      <p-column field="payment" header="Payment" [sortable]="true"></p-column>
+      <p-column field="createdAt" header="Created At" [sortable]="true"></p-column>
+      <p-column field="updatedAt" header="Updated At" [sortable]="true"></p-column>
+      <p-footer><div class="ui-helper-clearfix" style="width:100%"><button type="button" pButton icon="fa-plus" style="float:left" label="Add"></button></div></p-footer>
+  </p-dataTable>

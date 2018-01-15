@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     console.log("-> many to many");
    // drug.belongsToMany (models.prescription, { foreignKey: 'id_drug' });
     console.log("->drug belongs to sales");
-    drug.belongsTo (models.sale, { foreignKey: 'id_drug'});
+    //drug.belongsTo (models.sale, { foreignKey: 'id_drug'});
   }
   return drug;
 };
