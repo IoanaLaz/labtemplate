@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "postgres",
-    "password": "1q2w3e",
-    "database": "devdb",
-    "host": "127.0.0.1",
+    "username": "tyiogmmq",
+    "password": "loJYVIK7RzXsW64K6bsn_z9vJr_48tWd",
+    "database": "tyiogmmq",
+    "host": "baasu.db.elephantsql.com",
     "port": 5432,
     "dialect": "postgres"
   },
