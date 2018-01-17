@@ -52,6 +52,24 @@ export class ClientComponent implements OnInit {
     });
     this.displayDialog = false;
 }
+addOrUpdate(res) {
+  let clients = [...this.clients];
+  if (this.newClient) {
+    clients.push(res);
+  } else {
+    clients[this.findSelectedClientIndex()] = this.selectedClient;
+  }
+  this.clients = clients;
+  this.selectedClient = null;
+  this.displayDialog = false;
+}
+
+updateClient(select: Client) {
+  if (this.newClient)
+    this.apiService.post('api/client/', this.selectedClient).subscribe(res => this.addOrUpdate(res));
+  else
+    this.apiService.put('api/client/', this.selectedClient).subscribe(res => this.addOrUpdate(res));
+}
 
   delete() {
     this.apiService.delete('api/client/' + this.selectedClient.id).subscribe(res => {
