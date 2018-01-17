@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../service/';
 import { Client } from '../../../models/client';
+import { MessageService } from 'primeng/components/common/messageservice';
+import {InplaceModule} from 'primeng/primeng';
 
 @Component({
   selector: 'app-client',
@@ -11,7 +13,6 @@ import { Client } from '../../../models/client';
 export class ClientComponent implements OnInit {
 
   displayDialog: boolean;
-
   client: Client=new Client();
   selectedClient: Client;
   newClient: boolean;
@@ -38,44 +39,40 @@ export class ClientComponent implements OnInit {
     this.displayDialog =true;
   }
   save() {
-    this.apiService.post('api/client', this.client).subscribe(res => {
-      console.log(res);
-      });
-      this.client = new Client();
-    this.displayDialog = false;
-    this.ngOnInit();
+    let clients = [...this.clients];
+    if(this.newClient)
+      clients.push(this.client);
+    else
+      clients[this.findSelectedClientIndex()] = this.client;
+
+    this.clients= clients;
+    this.client=null;
+    this.displayDialog=false;
   } 
-  edit(){
-    this.apiService.put('api/client/' + this.selectedClient.id, this.client).subscribe(res =>{    
-        console.log(res);
-    }); 
-    this.client = new Client(); 
-    this.displayDialog = false;
-    this.ngOnInit();
-  }
 
   delete() {
-    this.apiService.delete('api/client/' + this.selectedClient.id).subscribe();
-    this.client = new Client(); 
-    this.displayDialog = false;
-    this.ngOnInit();
+    let index = this.findSelectedClientIndex();
+    this.clients=this.clients.filter((val,i) => i!=index);
+    this.client=null;
+    this.displayDialog=false;
   }    
 
   onRowSelect(event) {
     this.newClient = false;
-    this.client = this.cloneClient(this.selectedClient);
+    this.client = this.cloneClient(event.data);
     this.displayDialog = true;
   }
 
   cloneClient(c: Client): Client {
-    let user = new Client();
+    let client = new Client();
     for(let prop in c) {
-      user[prop] = c[prop];
+      client[prop] = c[prop];
     }
-    return user;
-  } 
+    return
 
-/* findByIdClientIndex(): number {
-    return this.client.findById(this.selectedClient);
- }*/
+  }
+
+ findSelectedClientIndex(): number {
+    return this.clients.indexOf(this.selectedClient);
+ }
 }

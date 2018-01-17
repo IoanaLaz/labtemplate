@@ -15,7 +15,7 @@ import { AppRoutingModule } from './app-routing.module';
 // Components
 import { AppComponent } from './app.component';
 import { HomeComponent, NavbarComponent } from './components';
-import { DataTableModule, SharedModule} from 'primeng/primeng';
+import { DataTableModule, SharedModule, ButtonModule} from 'primeng/primeng';
 import { DataListModule } from 'primeng/primeng';
 import { DialogModule } from 'primeng/primeng'
 
@@ -52,7 +52,8 @@ import { BillComponent } from './components/pages/bill/bill.component';
     DataTableModule,
     SharedModule,
     DataListModule,
-    DialogModule
+    DialogModule,
+    ButtonModule
   ],
   providers: [
     AppRoutingModule,
