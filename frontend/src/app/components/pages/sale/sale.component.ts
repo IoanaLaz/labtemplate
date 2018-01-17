@@ -39,16 +39,13 @@ export class SaleComponent implements OnInit {
     this.displayDialog =true;
   }
   save() {
-    let sales = [...this.sales];
-    if(this.newSale)
-      sales.push(this.sale);
-    else
-      sales[this.findSelectedSaleIndex()] = this.sale;
-
-    this.sales= sales;
-    this.sale=null;
+    this.apiService.post('api/sale',this.sale).subscribe(res => {
+      this.refresh();
+    });
     this.displayDialog=false;
   } 
+
+  
   edit() {
     this.apiService.put('api/sale/' + this.selectedSale.id, this.sale).subscribe(res => {
         this.refresh();
@@ -57,11 +54,11 @@ export class SaleComponent implements OnInit {
 }
 
   delete() {
-    let index = this.findSelectedSaleIndex();
-    this.sales=this.sales.filter((val,i) => i!=index);
-    this.sale=null;
-    this.displayDialog=false;
-  }    
+    this.apiService.delete('api/sale/' + this.selectedSale.id).subscribe(res => {
+        this.refresh();
+    });
+    this.displayDialog = false;
+}  
 
   onRowSelect(event) {
     this.newSale = false;

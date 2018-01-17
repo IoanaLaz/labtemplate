@@ -29,7 +29,7 @@ export class ClientComponent implements OnInit {
   refresh() {
      this.apiService.get('api/client').subscribe(res =>{    
      this.clients = res;
-     console.log(this.clients[0].id);
+     console.log("called");
     });
   } 
 
@@ -39,14 +39,9 @@ export class ClientComponent implements OnInit {
     this.displayDialog =true;
   }
   save() {
-    let clients = [...this.clients];
-    if(this.newClient)
-      clients.push(this.client);
-    else
-      clients[this.findSelectedClientIndex()] = this.client;
-
-    this.clients= clients;
-    this.client=null;
+    this.apiService.post('api/client',this.client).subscribe(res => {
+      this.refresh();
+    });
     this.displayDialog=false;
   } 
 
@@ -59,11 +54,11 @@ export class ClientComponent implements OnInit {
 }
 
   delete() {
-    let index = this.findSelectedClientIndex();
-    this.clients=this.clients.filter((val,i) => i!=index);
-    this.client=null;
-    this.displayDialog=false;
-  }    
+    this.apiService.delete('api/client/' + this.selectedClient.id).subscribe(res => {
+        this.refresh();
+    });
+    this.displayDialog = false;
+}  
 
   onRowSelect(event) {
     this.newClient= false;

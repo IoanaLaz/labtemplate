@@ -38,33 +38,28 @@ export class BillComponent implements OnInit {
     this.bill= new Bill();
     this.displayDialog =true;
   }
+
   save() {
-
-    let bills = [...this.bills];
-    if(this.newBill)
-      bills.push(this.bill);
-    else
-      bills[this.findSelectedBillIndex()] = this.bill;
-
-    this.bills= bills;
-    this.bill=null;
+    this.apiService.post('api/bill',this.bill).subscribe(res => {
+      this.refresh();
+    });
     this.displayDialog=false;
   } 
 
+  
   edit() {
     this.apiService.put('api/bill/' + this.selectedBill.id, this.bill).subscribe(res => {
         this.refresh();
     });
     this.displayDialog = false;
-}
-
+  }
 
   delete() {
-    let index = this.findSelectedBillIndex();
-    this.bills=this.bills.filter((val,i) => i!=index);
-    this.bill=null;
-    this.displayDialog=false;
-  }    
+    this.apiService.delete('api/bill/' + this.selectedBill.id).subscribe(res => {
+        this.refresh();
+    });
+    this.displayDialog = false;
+  }
 
   onRowSelect(event) {
     this.newBill = false;

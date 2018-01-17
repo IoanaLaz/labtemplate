@@ -38,16 +38,13 @@ export class PrescriptionComponent implements OnInit {
     this.displayDialog =true;
   }
   save() {
-    let prescriptions = [...this.prescriptions];
-    if(this.newPrescription)
-      prescriptions.push(this.prescription);
-    else
-      prescriptions[this.findSelectedPrescriptionIndex()] = this.prescription;
-
-    this.prescriptions= prescriptions;
-    this.prescription=null;
+    this.apiService.post('api/prescription',this.prescription).subscribe(res => {
+      this.refresh();
+    });
     this.displayDialog=false;
   } 
+
+  
   edit() {
     this.apiService.put('api/prescription/' + this.selectedPrescription.id, this.prescription).subscribe(res => {
         this.refresh();
@@ -56,11 +53,11 @@ export class PrescriptionComponent implements OnInit {
 }
 
   delete() {
-    let index = this.findSelectedPrescriptionIndex();
-    this.prescriptions=this.prescriptions.filter((val,i) => i!=index);
-    this.prescription=null;
-    this.displayDialog=false;
-  }    
+    this.apiService.delete('api/prescription/' + this.selectedPrescription.id).subscribe(res => {
+        this.refresh();
+    });
+    this.displayDialog = false;
+}  
 
   onRowSelect(event) {
     this.newPrescription = false;
