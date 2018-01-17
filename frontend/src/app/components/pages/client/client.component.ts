@@ -39,7 +39,8 @@ export class ClientComponent implements OnInit {
     this.displayDialog =true;
   }
   save() {
-    this.apiService.post('api/client',this.client).subscribe(res => {
+    console.log(this.selectedClient);
+    this.apiService.post('api/client',this.selectedClient).subscribe(res => {
       this.refresh();
     });
     this.displayDialog=false;

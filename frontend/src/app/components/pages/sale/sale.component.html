@@ -1,3 +1,8 @@
+<p>
+
+    <img src="assets/sale.jpg" align="center" width=500 height=300  />
+  </p>
+
 <p-dataTable [value]="sales" selectionMode="single" [(selection)]="selectedClient" (onRowSelect)="onRowSelect($event)" [paginator]="true" rows="15" [responsive]="true">
     <p-header>Sales Details</p-header>
     <p-column field="id" header="Id" [sortable]="true"></p-column>
