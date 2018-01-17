@@ -48,6 +48,12 @@ export class PrescriptionComponent implements OnInit {
     this.prescription=null;
     this.displayDialog=false;
   } 
+  edit() {
+    this.apiService.put('api/prescription/' + this.selectedPrescription.id, this.prescription).subscribe(res => {
+        this.refresh();
+    });
+    this.displayDialog = false;
+}
 
   delete() {
     let index = this.findSelectedPrescriptionIndex();
@@ -58,7 +64,8 @@ export class PrescriptionComponent implements OnInit {
 
   onRowSelect(event) {
     this.newPrescription = false;
-    this.prescription = this.clonePrescription(event.data);
+    this.prescription = this.clonePrescription(this.selectedPrescription);
+   console.log(this.prescriptions);
     this.displayDialog = true;
   }
 
@@ -67,7 +74,7 @@ export class PrescriptionComponent implements OnInit {
     for(let prop in p) {
       prescription[prop] = p[prop];
     }
-    return
+    return prescription;
 
   }
 

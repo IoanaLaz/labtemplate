@@ -31,7 +31,7 @@ export class ClientComponent implements OnInit {
      this.clients = res;
      console.log(this.clients[0].id);
     });
-  }
+  } 
 
   showDialogToAdd() {
     this.newClient = true;
@@ -50,6 +50,14 @@ export class ClientComponent implements OnInit {
     this.displayDialog=false;
   } 
 
+  
+  edit() {
+    this.apiService.put('api/client/' + this.selectedClient.id, this.client).subscribe(res => {
+        this.refresh();
+    });
+    this.displayDialog = false;
+}
+
   delete() {
     let index = this.findSelectedClientIndex();
     this.clients=this.clients.filter((val,i) => i!=index);
@@ -58,8 +66,9 @@ export class ClientComponent implements OnInit {
   }    
 
   onRowSelect(event) {
-    this.newClient = false;
-    this.client = this.cloneClient(event.data);
+    this.newClient= false;
+    this.client = this.cloneClient(this.selectedClient);
+   console.log(this.clients);
     this.displayDialog = true;
   }
 
@@ -68,7 +77,7 @@ export class ClientComponent implements OnInit {
     for(let prop in c) {
       client[prop] = c[prop];
     }
-    return
+    return client;
 
   }
 

@@ -39,6 +39,7 @@ export class BillComponent implements OnInit {
     this.displayDialog =true;
   }
   save() {
+
     let bills = [...this.bills];
     if(this.newBill)
       bills.push(this.bill);
@@ -50,6 +51,14 @@ export class BillComponent implements OnInit {
     this.displayDialog=false;
   } 
 
+  edit() {
+    this.apiService.put('api/bill/' + this.selectedBill.id, this.bill).subscribe(res => {
+        this.refresh();
+    });
+    this.displayDialog = false;
+}
+
+
   delete() {
     let index = this.findSelectedBillIndex();
     this.bills=this.bills.filter((val,i) => i!=index);
@@ -59,7 +68,8 @@ export class BillComponent implements OnInit {
 
   onRowSelect(event) {
     this.newBill = false;
-    this.bill = this.cloneBill(event.data);
+    this.bill = this.cloneBill(this.selectedBill);
+   console.log(this.bills);
     this.displayDialog = true;
   }
 
@@ -68,7 +78,7 @@ export class BillComponent implements OnInit {
     for(let prop in b) {
       bill[prop] = b[prop];
     }
-    return
+    return bill;
 
   }
 

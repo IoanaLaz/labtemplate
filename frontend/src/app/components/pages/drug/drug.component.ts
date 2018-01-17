@@ -49,6 +49,13 @@ export class DrugComponent implements OnInit {
     this.drug=null;
     this.displayDialog=false;
   } 
+  
+  edit() {
+    this.apiService.put('api/drug/' + this.selectedDrug.id, this.drug).subscribe(res => {
+        this.refresh();
+    });
+    this.displayDialog = false;
+}
 
   delete() {
     let index = this.findSelectedDrugIndex();
@@ -58,8 +65,9 @@ export class DrugComponent implements OnInit {
   }    
 
   onRowSelect(event) {
-    this.newDrug = false;
-    this.drug = this.cloneDrug(event.data);
+    this.newDrug= false;
+    this.drug= this.cloneDrug(this.selectedDrug);
+   console.log(this.drugs);
     this.displayDialog = true;
   }
 
@@ -68,7 +76,7 @@ export class DrugComponent implements OnInit {
     for(let prop in d) {
       drug[prop] = d[prop];
     }
-    return
+    return drug;
 
   }
 

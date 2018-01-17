@@ -49,6 +49,12 @@ export class SaleComponent implements OnInit {
     this.sale=null;
     this.displayDialog=false;
   } 
+  edit() {
+    this.apiService.put('api/sale/' + this.selectedSale.id, this.sale).subscribe(res => {
+        this.refresh();
+    });
+    this.displayDialog = false;
+}
 
   delete() {
     let index = this.findSelectedSaleIndex();
@@ -59,7 +65,8 @@ export class SaleComponent implements OnInit {
 
   onRowSelect(event) {
     this.newSale = false;
-    this.sale = this.cloneSale(event.data);
+    this.sale = this.cloneSale(this.selectedSale);
+   console.log(this.sales);
     this.displayDialog = true;
   }
 
@@ -68,7 +75,7 @@ export class SaleComponent implements OnInit {
     for(let prop in s) {
       sale[prop] = s[prop];
     }
-    return
+    return sale;
 
   }
 
